@@ -30,6 +30,7 @@ const ConsumptionMethodOption = ({
             <Image
               src={imageUrl}
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               alt={imageAlt}
               className="object-contain"
             />
