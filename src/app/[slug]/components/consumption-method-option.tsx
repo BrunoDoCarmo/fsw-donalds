@@ -2,7 +2,6 @@ import { ConsumptionMethod } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ConsumptionMethodOptionProps {
@@ -35,9 +34,7 @@ const ConsumptionMethodOption = ({
               className="object-contain"
             />
           </div>
-          <Button variant="secondary" className="rounded-full">
-            {buttonText}
-          </Button>
+          <h2 className="mt-4">{buttonText}</h2>
         </Link>
       </CardContent>
     </Card>
