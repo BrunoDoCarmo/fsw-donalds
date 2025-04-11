@@ -1,9 +1,10 @@
-import { Products } from "@prisma/client";
+import { Product } from "@prisma/client";
+
 interface ProductsProps {
-    products: Products[]
+    products: Product[]
 }
 
-const Products = () => {
+const Products = ({products}: ProductsProps) => {
     return (  );
 }
  
