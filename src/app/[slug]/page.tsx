@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug";
+import { db } from "@/lib/prisma";
 
 import ConsumptionMethodOption from "./components/consumption-method-option";
 
@@ -11,7 +11,7 @@ interface RestaurantPageProps {
 
 const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   const { slug } = await params;
-  const restaurant = await getRestaurantBySlug(slug);
+  const restaurant = await db.restaurant.findUnique({ where: { slug } });
   if (!restaurant) {
     return notFound;
   }
@@ -20,12 +20,12 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
       {/* LOGO E TITULO */}
       <div className="flex flex-col items-center gap-2">
         <Image
-          src={restaurant?.avatarImageUrl}
+          src={restaurant.avatarImageUrl}
           alt={restaurant.name}
           width={82}
           height={82}
         />
-        <h2 className="font-semibold">{restaurant?.name}</h2>
+        <h2 className="font-semibold">{restaurant.name}</h2>
       </div>
       {/* BEM VINDO */}
       <div className="space-y-2 pt-24 text-center">
