@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/prisma";
 
 import ConsumptionMethodOption from "./components/consumption-method-option";
+import Teste from "./teste";
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,7 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   return (
     <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
       {/* LOGO E TITULO */}
+     <Teste />
       <div className="flex flex-col items-center gap-2">
         <Image
           src={restaurant.avatarImageUrl}
