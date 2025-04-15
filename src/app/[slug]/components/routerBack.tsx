@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 
-const Teste = () => {
+const RouterBack = () => {
   const router = useRouter();
   const handleBackClick = () => router.back();
     return ( 
@@ -21,4 +21,4 @@ const Teste = () => {
      );
 }
  
-export default Teste;
+export default RouterBack;
