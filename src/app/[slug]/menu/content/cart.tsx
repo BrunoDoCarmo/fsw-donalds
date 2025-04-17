@@ -9,29 +9,36 @@ interface CardProduct extends Pick<Product, "id" | "name" | "price" | "imageUrl"
 
 export interface ICardContext {
     isOpen: boolean;
-    product: CardProduct[]
+    products: CardProduct[]
     toggleCard: () => void;
+    addProduct: (product: CardProduct) => void;
 }
 
 export const CardContext = createContext<ICardContext>({
     isOpen: false,
-    product: [],
+    products: [],
     toggleCard: () => {},
+    addProduct: () => {},
 });
 
 export const CardProvider = ({ children}: { children: ReactNode }) => {
-    const [product, setProduct] = useState<CardProduct[]>([]);
+    const [products, setProducts] = useState<CardProduct[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleCard = () => {
         setIsOpen((prev) => !prev);
     }
+
+    const addProduct = (product: CardProduct) => {
+        setProducts(prev => ([...prev, product]))
+    }
     return (
         <CardContext.Provider
             value={{
                 isOpen,
-                product,
-                toggleCard
+                products,
+                toggleCard,
+                addProduct,
             }}
         >
             {children}
