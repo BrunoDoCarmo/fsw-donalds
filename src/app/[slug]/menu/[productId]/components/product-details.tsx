@@ -7,9 +7,9 @@ import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { formatCurrency } from "@/helpers/format-currency";
 
+import CardSheet from "../../components/card-sheet";
 import { CardContext } from "../../content/cart";
 
 interface ProductDetailsProps {
@@ -26,7 +26,7 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const {isOpen, toggleCard} = useContext(CardContext);
+  const { toggleCard} = useContext(CardContext);
   const [quantity, setQuantity] = useState<number>(1);
   const handleDecreaseQuantity = () => {
     setQuantity((prev) => {
@@ -42,7 +42,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const handleAddToCard = () => {
     toggleCard()
   }
-  console.log({isOpen});
   return (
     <>
       <div className="relative z-50 mt-[-1.5rem] flex flex-auto flex-col overflow-hidden rounded-t-3xl p-5">
@@ -116,17 +115,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           Adicionar à sacola
         </Button>
       </div>
-      <Sheet open={isOpen} onOpenChange={toggleCard}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your account
-              and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
-        </SheetContent>
-      </Sheet>
+      <CardSheet/>
     </>
   );
 };
