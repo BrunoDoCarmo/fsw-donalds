@@ -7,11 +7,11 @@ import {
     SheetTitle
 } from "@/components/ui/sheet";
 
-import { CardContext } from "../content/cart";
+import { CartContext } from "../content/cart";
 import CartProductItem from "./cart-product-item";
 
-const CardSheet = () => {
-  const {isOpen, toggleCard, products} = useContext(CardContext);
+const CartSheet = () => {
+  const {isOpen, toggleCard, products} = useContext(CartContext);
     return ( 
         <Sheet open={isOpen} onOpenChange={toggleCard}>
             <SheetContent className="w-[80%]">
@@ -28,4 +28,4 @@ const CardSheet = () => {
     );
 }
  
-export default CardSheet;
+export default CartSheet;

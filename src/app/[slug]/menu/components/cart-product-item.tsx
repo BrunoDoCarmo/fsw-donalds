@@ -1,16 +1,18 @@
 import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
+import { useContext } from "react";
 
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/helpers/format-currency";
 
-import { CardProduct } from "../content/cart";
+import { CartContext, CartProduct } from "../content/cart";
 
 interface CardItemProps {
-    product: CardProduct
+    product: CartProduct
 }
 
 const CardProductItem = ({product}: CardItemProps) => {
+    const {decreaseProductQuantity, increaseProductQuantity, removeProduct} = useContext(CartContext)
     return ( 
         <div className="flex items-center justify-between">
             {/* ESQUERDA */}
@@ -23,18 +25,18 @@ const CardProductItem = ({product}: CardItemProps) => {
                     <p className="text-sm font-semibold">{formatCurrency(product.price)}</p>
                     {/* QUANTIDADE */}
                     <div className="flex items-center gap-1 text-center">
-                        <Button className="w-7 h-7 rounded-lg" variant="outline">
+                        <Button className="w-7 h-7 rounded-lg" variant="outline" onClick={() => decreaseProductQuantity(product.id)}>
                             <ChevronLeftIcon/>
                         </Button>
                         <p className="text-xs w-7">{product.quantity}</p>
-                        <Button className="w-7 h-7 rounded-lg" variant="destructive">
+                        <Button className="w-7 h-7 rounded-lg" variant="destructive" onClick={() => increaseProductQuantity(product.id)}>
                             <ChevronRightIcon/>
                         </Button>
                     </div>
                 </div>
             </div>
             {/* DIRETA */}
-            <Button className="w-7 h-7 rounded-lg" variant="outline">
+            <Button className="w-7 h-7 rounded-lg" variant="outline" onClick={() => removeProduct(product.id)}>
                 <TrashIcon/>
             </Button>
         </div>

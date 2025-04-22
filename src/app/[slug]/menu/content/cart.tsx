@@ -3,34 +3,40 @@
 import { Product } from "@prisma/client";
 import { createContext, ReactNode, useState } from "react";
 
-export interface CardProduct 
+export interface CartProduct 
     extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {   
     quantity: number;
 } 
 
-export interface ICardContext {
+export interface ICartContext {
     isOpen: boolean;
-    products: CardProduct[]
+    products: CartProduct[]
     toggleCard: () => void;
-    addProduct: (product: CardProduct) => void;
+    addProduct: (product: CartProduct) => void;
+    decreaseProductQuantity: (productId: string) => void
+    increaseProductQuantity: (productId: string) => void
+    removeProduct: (productId: string) => void
 }
 
-export const CardContext = createContext<ICardContext>({
+export const CartContext = createContext<ICartContext>({
     isOpen: false,
     products: [],
     toggleCard: () => {},
     addProduct: () => {},
+    decreaseProductQuantity: () => {},
+    increaseProductQuantity: () => {},
+    removeProduct: () => {},
 });
 
 export const CardProvider = ({ children}: { children: ReactNode }) => {
-    const [products, setProducts] = useState<CardProduct[]>([]);
+    const [products, setProducts] = useState<CartProduct[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleCard = () => {
         setIsOpen((prev) => !prev);
     }
 
-    const addProduct = (product: CardProduct) => {
+    const addProduct = (product: CartProduct) => {
         const productIsAlreadyOnTheCart = products.some(
             (prevProduct) => prevProduct.id === product.id
         );
@@ -49,16 +55,49 @@ export const CardProvider = ({ children}: { children: ReactNode }) => {
             })
         })
     }
+
+    const decreaseProductQuantity = (productId: string) => {
+        setProducts((prevProducts) => {
+            return prevProducts.map((prevProduct) => {
+                if (prevProduct.id !== productId) {
+                    return prevProduct
+                }
+                if (prevProduct.quantity === 1) {
+                    return {...prevProduct, quantity: prevProduct.quantity - 1}
+                }
+                return prevProduct
+            })
+        })
+
+    }
+    const increaseProductQuantity = (productId: string) => {
+        setProducts(prevProduct => {
+            return prevProduct.map(prevProduct => {
+                if (prevProduct.id !== productId) {
+                    return prevProduct
+                }
+                return {...prevProduct, quantity: prevProduct.quantity + 1}
+            })
+        })
+    }
+    const removeProduct = (productId: string) => {
+        setProducts((prevProducts) =>
+            prevProducts.filter((prevProduct) => prevProduct.id !== productId)
+        )
+    }
     return (
-        <CardContext.Provider
+        <CartContext.Provider
             value={{
                 isOpen,
                 products,
                 toggleCard,
-                addProduct,
+               addProduct,
+               decreaseProductQuantity,
+               increaseProductQuantity,
+               removeProduct
             }}
         >
             {children}
-        </CardContext.Provider>
+        </CartContext.Provider>
     )
 };
