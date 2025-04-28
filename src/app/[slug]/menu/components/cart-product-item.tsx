@@ -12,7 +12,7 @@ interface CardItemProps {
 }
 
 const CardProductItem = ({product}: CardItemProps) => {
-    const {decreaseProductQuantity, increaseProductQuantity, removeProduct} = useContext(CartContext)
+    const {decreaseProductQuantity,increaseProductQuantity, removeProduct} = useContext(CartContext)
     return ( 
         <div className="flex items-center justify-between">
             {/* ESQUERDA */}
