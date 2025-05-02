@@ -16,12 +16,18 @@ import {
     DrawerHeader,
     DrawerTitle,
   } from "@/components/ui/drawer"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { 
+    Form, 
+    FormControl, 
+    FormField, 
+    FormItem, 
+    FormLabel, 
+    FormMessage 
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 import { isValidCpf, removeCpfPunctuation } from "../../menu/helpers/cpf";
   
-
 const formSchema = z.object({
   cpf: z
     .string()
@@ -41,9 +47,9 @@ const CpfForm = () => {
         resolver: zodResolver(formSchema)
     })
     const router = useRouter()
-    const pathName = usePathname()
+    const pathname = usePathname()
     const onSubmit = async (data: formSchema) => {
-        router.push(`${pathName}?cpf=${removeCpfPunctuation(data.cpf)}`)
+        router.push(`${pathname}?cpf=${removeCpfPunctuation(data.cpf)}`)
     }
     const handleCancel = () => {
         router.back()
@@ -53,8 +59,11 @@ const CpfForm = () => {
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Visualizar Pedidos</DrawerTitle>
-                    <DrawerDescription>informe seu CPF para visualizar seus pedidos!</DrawerDescription>
+                    <DrawerDescription>
+                        informe seu CPF para visualizar seus pedidos!
+                    </DrawerDescription>
                 </DrawerHeader>
+
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
@@ -76,16 +85,23 @@ const CpfForm = () => {
                             )}
                         />
                         <DrawerFooter>
-                            <Button variant="destructive" className="w-full rounded-full">Confirmar</Button>
+                            <Button variant="destructive" className="w-full rounded-full">
+                                Confirmar
+                            </Button>
                             <DrawerClose>
-                                <Button variant="outline" className="w-full rounded-full" onClick={handleCancel}>Cancelar</Button>
+                                <Button 
+                                    variant="outline" 
+                                    className="w-full rounded-full" 
+                                    onClick={handleCancel}
+                                >
+                                        Cancelar
+                                </Button>
                             </DrawerClose>
                         </DrawerFooter>
                     </form>
                 </Form>
             </DrawerContent>
         </Drawer>
-
     );
 }
  
