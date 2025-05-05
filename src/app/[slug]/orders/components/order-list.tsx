@@ -1,3 +1,5 @@
+"use client"
+
 import { OrderStatus, Prisma } from "@prisma/client";
 import { CalendarDays, Timer } from "lucide-react";
 import Image from "next/image";
@@ -8,7 +10,9 @@ import {Separator} from "@/components/ui/separator";
 import { formatCurrency } from "@/helpers/format-currency";
 import { formatDate, formatHour } from "@/helpers/format-date";
 
+import FieldContainer from "../../components/fieldContainer";
 import RouterBack from "../../components/routerBack";
+import OrderStatusFilter from "./orderStatusFilter";
 interface OrderListProps {
     orders: Array<
         Prisma.OrderGetPayload<{
@@ -40,32 +44,44 @@ const getStatusLabel = (status: OrderStatus) => {
 
 const OrderList = ({orders}: OrderListProps) => {
     const [statusFilter, setStatusFilter] = useState<OrderStatus | "ALL">("ALL");
+    const [startDate, setStartDate] = useState<string>("");
+    const [endDate, setEndDate] = useState<string>("");
     
-    const filteredOrders = statusFilter === "ALL"
-    ? orders
-    : orders.filter((order) => order.status === statusFilter);
-    
+    const [tempStatus, setTempStatus] = useState<OrderStatus | "ALL">("ALL");
+    const [tempStartDate, setTempStartDate] = useState<string>("");
+    const [tempEndDate, setTempEndDate] = useState<string>("");
+
+    const handleApplyFilters = () => {
+        setStatusFilter(tempStatus);
+        setStartDate(tempStartDate);
+        setEndDate(tempEndDate);
+    };
+
+    const filteredOrders = orders.filter((order) => {
+        const matchStatus = statusFilter === "ALL" || order.status === statusFilter;
+        const orderDate = new Date(order.createdAt).toISOString().split("T")[0];     
+        const matchStartDate = startDate ? orderDate >= startDate : true;
+        const matchEndDate = endDate ? orderDate <= endDate : true;
+      
+        return matchStatus && matchStartDate && matchEndDate;
+      });
     return ( 
         <div className="space-y-6 p-6">
             <RouterBack/>
             <div className="flex items-center gap-3">
                 <h2 className="text-lg font-semibold">Meus Pedidos</h2>
             </div>
-            <div className="flex gap-4 items-center">
-                <label className="text-sm font-medium">Filtrar por status:</label>
-                <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value as OrderStatus | "ALL")}
-                    className="border border-gray-300 rounded px-3 py-1 text-sm"
-                >
-                    <option value="ALL">Todos</option>
-                    <option value="PENDING">Pendente</option>
-                    <option value="IN_PREPARATION">Em preparo</option>
-                    <option value="PAYMENT_CONFIRMED">Pagamento confirmado</option>
-                    <option value="FINISHED">Finalizado</option>
-                    <option value="PAYMENT_FAILED">Pagamento falhou</option>
-                </select>
-            </div>
+            <FieldContainer>
+                <OrderStatusFilter
+                    tempStatus={tempStatus}
+                    tempStartDate={tempStartDate}
+                    tempEndDate={tempEndDate}
+                    onTempStatusChange={setTempStatus}
+                    onTempStartDateChange={setTempStartDate}
+                    onTempEndDateChange={setTempEndDate}
+                    onApplyFilters={handleApplyFilters}
+                />
+            </FieldContainer>
             {filteredOrders.map((order) => (
                 <Card key={order.id}>
                     <CardContent className="space-y-4 p-5">
