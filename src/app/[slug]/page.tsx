@@ -5,6 +5,7 @@ import { db } from "@/lib/prisma";
 
 import ConsumptionMethodOption from "./components/consumption-method-option";
 import RouterBack from "./components/routerBack";
+import RouterPedido from "./components/routerPedido";
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;
@@ -19,7 +20,8 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   return (
     <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
       {/* LOGO E TITULO */}
-     <RouterBack />
+     <RouterBack className="absolute left-4 top-4 z-50"/>
+     <RouterPedido className="absolute right-4 top-4 z-50"/>
       <div className="flex flex-col items-center gap-2">
         <Image
           src={restaurant.avatarImageUrl}

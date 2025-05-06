@@ -1,7 +1,7 @@
 "use client"
 
 import { OrderStatus, Prisma } from "@prisma/client";
-import { CalendarDays, Timer } from "lucide-react";
+import { CalendarDays, ScrollTextIcon, Timer } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -67,8 +67,9 @@ const OrderList = ({orders}: OrderListProps) => {
       });
     return ( 
         <div className="space-y-6 p-6">
-            <RouterBack/>
+            <RouterBack className="absolute left-4 top-4 z-50"/>
             <div className="flex items-center gap-3">
+                <ScrollTextIcon />
                 <h2 className="text-lg font-semibold">Meus Pedidos</h2>
             </div>
             <FieldContainer>

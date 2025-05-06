@@ -88,7 +88,7 @@ const CpfForm = () => {
                             <Button variant="destructive" className="w-full rounded-full">
                                 Confirmar
                             </Button>
-                            <DrawerClose>
+                            <DrawerClose asChild>
                                 <Button 
                                     variant="outline" 
                                     className="w-full rounded-full" 

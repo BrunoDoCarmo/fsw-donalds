@@ -5,15 +5,18 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 
+interface RouterBackProps {
+    className?: string; 
+}
 
-const RouterBack = () => {
+const RouterBack = ({className}: RouterBackProps) => {
   const router = useRouter();
   const handleBackClick = () => router.back();
     return ( 
          <Button
             variant="secondary"
             size="icon"
-            className="absolute left-4 top-4 z-50 rounded-full"
+            className={`${className} rounded-full`}
             onClick={handleBackClick}
         >
             <ChevronLeftIcon />
