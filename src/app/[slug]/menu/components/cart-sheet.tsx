@@ -1,3 +1,4 @@
+import { Separator } from "@radix-ui/react-separator";
 import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -16,9 +17,9 @@ import FinishOrderDialog from "./finish-order-dialog";
 
 const CartSheet = () => {
   const [finishOrderDialogIsOpen, setFinishOrderDialogIsOpen] = useState(false);
-  const { isOpen, toggleCard, products, total } = useContext(CartContext);
+  const { isOpen, toggleCart, products, total, totalQuantity } = useContext(CartContext);
   return (
-    <Sheet open={isOpen} onOpenChange={toggleCard}>
+    <Sheet open={isOpen} onOpenChange={toggleCart}>
       <SheetContent className="w-[80%]">
         <SheetHeader>
           <SheetTitle className="text-left">Sacola</SheetTitle>
@@ -30,10 +31,15 @@ const CartSheet = () => {
             ))}
           </div>
           <Card className="mb-6">
-            <CardContent className="p-5">
+            <CardContent className="p-5 gap-2 flex flex-col">
               <div className="flex justify-between">
                 <p className="text-sm text-muted-foreground">Total</p>
                 <p className="text-sm font-semibold">{formatCurrency(total)}</p>
+              </div>
+              <Separator className="border-gray-300 border-t"/>
+              <div className="flex justify-between">
+                <p className="text-sm text-muted-foreground">Total de {totalQuantity > 1 ? "Itens" : "Item"}</p>
+                <p className="text-sm font-semibold">{totalQuantity}</p>
               </div>
             </CardContent>
           </Card>

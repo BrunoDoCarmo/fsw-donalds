@@ -111,7 +111,7 @@ const OrderList = ({orders}: OrderListProps) => {
                                 </div>
                             </div>
                         </div>
-                        <Separator />
+                        <Separator className="border-gray-300 border-t"/>
                         <div className="space-y-2">
                             {order.orderProducts.map((orderProduct) => (
                                 <div key={orderProduct.id} className="flex items-center gap-2">
@@ -122,8 +122,8 @@ const OrderList = ({orders}: OrderListProps) => {
                                 </div> 
                             ))}
                         </div>
-                        <Separator />
-                        <p className="text-sm font-medium">{formatCurrency(order.total)}</p>
+                        <Separator className="border-gray-300 border-t"/>
+                        <p className="text-sm font-medium">Total: {formatCurrency(order.total)}</p>
                     </CardContent>
                 </Card>
             ))}
