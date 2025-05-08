@@ -13,6 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Empresa {
+  id                 String   @id @default(uuid())
+  razao_social       String
+  fantasia           String
+  cnpj               String   @unique
+  inscricao_estadual String
+  logradouro         String
+  numero             String
+  complemento        String
+  bairro             String
+  nome_cidade        String
+  cidade_id          String
+  uf                 String
+  cep                String
+  telefone           String
+  email              String
+  site               String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  slug               String   @unique
+}
+
+model Cidade {
+  id   String @id @default(uuid())
+  nome String
+  uf   String
+  ibge String
+}
+
 model Restaurant {
   id             String         @id @default(uuid())
   name           String

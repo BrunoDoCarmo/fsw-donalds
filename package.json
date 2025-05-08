@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "prisma": {
-    "seed": "ts-node ./prisma/seed.ts"
+    "seed": "ts-node ./prisma/seed-cidade.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
