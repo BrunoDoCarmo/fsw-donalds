@@ -3,8 +3,8 @@
 import { Restaurant } from "@prisma/client";
 import Image from "next/image";
 
-import RouterBack from "../../components/routerBack";
-import RouterPedido from "../../components/routerPedido";
+import RouterBack from "../../../components/routerBack";
+import RouterPedido from "../../../components/routerPedido";
 
 interface RestaurantHeaderProps {
   restaurant: Pick<Restaurant, "name" | "coverImageUrl">;

@@ -10,8 +10,8 @@ import {Separator} from "@/components/ui/separator";
 import { formatCurrency } from "@/helpers/format-currency";
 import { formatDate, formatHour } from "@/helpers/format-date";
 
-import FieldContainer from "../../components/fieldContainer";
-import RouterBack from "../../components/routerBack";
+import FieldContainer from "../../../components/fieldContainer";
+import RouterBack from "../../../components/routerBack";
 import OrderStatusFilter from "./orderStatusFilter";
 interface OrderListProps {
     orders: Array<

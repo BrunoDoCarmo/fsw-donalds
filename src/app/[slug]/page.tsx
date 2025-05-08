@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/prisma";
 
 import ConsumptionMethodOption from "./components/consumption-method-option";
-import RouterBack from "./components/routerBack";
-import RouterPedido from "./components/routerPedido";
+import RouterBack from "../components/routerBack";
+import RouterPedido from "../components/routerPedido";
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;

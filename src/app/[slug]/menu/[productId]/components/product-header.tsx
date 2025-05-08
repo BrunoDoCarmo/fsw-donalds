@@ -3,8 +3,8 @@
 import { Product } from "@prisma/client";
 import Image from "next/image";
 
-import RouterBack from "@/app/[slug]/components/routerBack";
-import RouterPedido from "@/app/[slug]/components/routerPedido";
+import RouterBack from "@/app/components/routerBack";
+import RouterPedido from "@/app/components/routerPedido";
 
 interface ProductHeaderProps {
     product: Pick<Product, "name" | "imageUrl">
